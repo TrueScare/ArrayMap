@@ -99,8 +99,8 @@ public class ArrayMap<K, V> implements Map<K, V> {
     @Override
     public boolean containsValue(Object pValue) {
         for (Entry<K, V> lEntry : values) {
-            if(lEntry != null) {
-                if(pValue.equals(lEntry.getValue())){
+            if (lEntry != null) {
+                if (pValue.equals(lEntry.getValue())) {
                     return true;
                 }
             }
@@ -138,7 +138,7 @@ public class ArrayMap<K, V> implements Map<K, V> {
             }
         } else {
             // space empty, so we can just add the entry here
-            addEntry(pKey,pValue);
+            addEntry(pKey, pValue);
             size++;
         }
 
@@ -171,27 +171,39 @@ public class ArrayMap<K, V> implements Map<K, V> {
         size = 0;
     }
 
+    /**
+     * Not implemented as the assignment would be bloated.
+     * @throws UnsupportedOperationException Not Supported
+     */
     @Override
     public Set<K> keySet() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * Not implemented as the assignment would be bloated.
+     * @throws UnsupportedOperationException Not Supported
+     */
     @Override
     public Collection<V> values() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * Not implemented as the assignment would be bloated.
+     * @throws UnsupportedOperationException Not Supported
+     */
     @Override
     public Set<Map.Entry<K, V>> entrySet() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
-    public Entry<K,V>[] toArray(){
-        Entry<K,V>[] lEntries = (Entry<K,V>[])new Entry[size];
+    public Entry<K, V>[] toArray() {
+        Entry<K, V>[] lEntries = (Entry<K, V>[]) new Entry[size];
         int i = 0;
 
         for (Entry<K, V> lEntry : values) {
-            if(lEntry != null) {
+            if (lEntry != null) {
                 lEntries[i] = lEntry;
                 i++;
             }
@@ -204,11 +216,11 @@ public class ArrayMap<K, V> implements Map<K, V> {
     public String toString() {
         StringBuffer lSB = new StringBuffer();
 
-        Entry<K,V>[] lEntries = toArray();
+        Entry<K, V>[] lEntries = toArray();
 
         lSB.append("{");
-        for (int i = 0; i<lEntries.length; i++) {
-            if(i != 0){
+        for (int i = 0; i < lEntries.length; i++) {
+            if (i != 0) {
                 lSB.append(", ");
             }
 
@@ -248,21 +260,33 @@ public class ArrayMap<K, V> implements Map<K, V> {
         // double the length, as performing the copying is rather expensive
         values = (Entry<K, V>[]) new Entry[lOldValues.length * 2];
 
-        if(size > 0) {
+        if (size > 0) {
             // sort existing entries in new size array
             for (Entry<K, V> lEntry : lOldValues) {
-                if(lEntry != null) {
+                if (lEntry != null) {
                     addEntry(lEntry.getKey(), lEntry.getValue());
                 }
             }
         }
     }
 
+    /**
+     * Calculates the position in the array for given key pKey.
+     *
+     * @param pKey Key Value
+     * @return
+     */
     private int getPositionKey(Object pKey) {
         int hashKey = pKey.hashCode();
         return (hashKey % values.length);
     }
 
+    /**
+     * Finds and returns the entry for a certain key pKey.
+     *
+     * @param pKey Key value
+     * @return Entry with key pKey
+     */
     private Entry<K, V> getEntry(Object pKey) {
         int positionKey = getPositionKey(pKey);
 
@@ -275,7 +299,14 @@ public class ArrayMap<K, V> implements Map<K, V> {
         return lEntry;
     }
 
-    private void addEntry(K pKey, V pValue){
+    /**
+     * Adds the Key Value pair into the array. This method should only be called when certain that the pKey value
+     * does not exist in the array already
+     *
+     * @param pKey   K Value
+     * @param pValue V Value
+     */
+    private void addEntry(K pKey, V pValue) {
         int positionKey = getPositionKey(pKey);
 
         values[positionKey] = new Entry<>(pKey, pValue);
