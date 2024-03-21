@@ -9,7 +9,6 @@ public class ArrayMap<K, V> implements Map<K, V> {
     protected Set<K> keySet;
     protected Collection<V> vallueCollection;
 
-
     //#endregion Fields
 
     //#region Constructors
@@ -148,6 +147,10 @@ public class ArrayMap<K, V> implements Map<K, V> {
     @Override
     public V remove(Object pKey) {
         V lValue = null;
+
+        if (size == 0){
+            return lValue;
+        }
 
         if (containsKey(pKey)) {
             lValue = values[getPositionKey(pKey)].getValue();
