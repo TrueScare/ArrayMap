@@ -6,7 +6,13 @@ public class ArrayMap<K, V> implements Map<K, V> {
     //#region Fields
     transient int size = 0;
     protected Entry<K, V>[] values;
+    /**
+     * This parameter is only here for completeness. It's neither used nor does it get instantiated.
+     */
     protected Set<K> keySet;
+    /**
+     * This parameter is only here for completeness. It's neither used nor does it get instantiated.
+     */
     protected Collection<V> vallueCollection;
 
     //#endregion Fields
