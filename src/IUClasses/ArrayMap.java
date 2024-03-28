@@ -122,9 +122,8 @@ public class ArrayMap<K, V> implements Map<K, V> {
 
     @Override
     public V put(K pKey, V pValue) {
-        //prepare hash key by which the entries are sorted
-        int hashKey = pKey.hashCode();
-        int positionKey = hashKey % values.length;
+        // prepare hash key by which the entries are sorted
+        int positionKey = getPositionKey(pKey);
 
         V lOldValue = null;
 
@@ -283,7 +282,7 @@ public class ArrayMap<K, V> implements Map<K, V> {
      * Calculates the position in the array for given key pKey.
      *
      * @param pKey Key Value
-     * @return
+     * @return int Position inside the array
      */
     private int getPositionKey(Object pKey) {
         int hashKey = pKey.hashCode();
